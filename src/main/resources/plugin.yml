@@ -1,0 +1,7 @@
+name: Lobby
+description: Just a simple lobby plugin.
+api-version: '1.8'
+version: '1.0'
+authors: [zMrNull]
+main: br.com.luthymc.lobby.Lobby
+depend: [NPCLibPlugin]
