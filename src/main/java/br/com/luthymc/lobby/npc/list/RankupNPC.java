@@ -17,7 +17,7 @@ public class PrisonNPC extends LobbyNPC {
                 location,
                 new ItemStack(Material.DIAMOND_PICKAXE),
                 1260908926,
-                "&e&lPRISON - LUTHYMC", "&7Hello, have a good &e" + TimeUtilities.getDayPart() + "&7!", "", "&7Click here to join the &eserver&7!");
+                "&e&lRANKUP - LUTHYMC", "&7Olá, tenha &e" + TimeUtilities.getDayPart() + "&7!", "", "&7Clique aqui para entrar no &eservidor&7!");
     }
 
     @Override
@@ -26,7 +26,7 @@ public class PrisonNPC extends LobbyNPC {
             val player = event.getWhoClicked();
             val api = BungeeChannelApi.of(Lobby.getInstance());
 
-            if (Lobby.getPlayerSettings(player.getUniqueId()).alerts()) player.sendMessage("§cYou're now in queue to join the Prison server!");
+            if (Lobby.getPlayerSettings(player.getUniqueId()).alertas()) player.sendMessage("§cVocê entrou na queue para ");
 
             api.connect(player, "prison");
         }
