@@ -25,13 +25,13 @@ public class ChatListener implements Listener {
 
         event.setCancelled(true);
 
-        if (!activated && !player.hasPermission("lobby.bypass")) {
-            player.sendMessage("§cThe chat is locked.");
+        if (!Lobby.getPlayerSettings(player.getUniqueId()).chat()) {
+            player.sendMessage("§cVocê não pode enviar mensagens enquanto o seu chat está desativado.");
             return;
         }
 
-        if (!Lobby.getPlayerSettings(player.getUniqueId()).chat()) {
-            player.sendMessage("§cYou can't send messages when you have the chat disabled.");
+        if (!activated && !player.hasPermission("lobby.bypass")) {
+            player.sendMessage("§cO chat está bloqueado.");
             return;
         }
 

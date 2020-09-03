@@ -18,17 +18,17 @@ public class CompassMenu implements InventoryProvider {
             .provider(new CompassMenu())
             .manager(Lobby.getInventoryManager())
             .size(3, 9)
-            .title("§8Select a server to join!")
+            .title("§8Selecione um servidor para entrar!")
             .closeable(true)
             .build();
 
     @Override
     public void init(Player player, InventoryContents contents) {
-        contents.set(1, 4, ClickableItem.of(new Item(Material.DIAMOND_PICKAXE).name("&e&lPRISON").lore("", "&7Click here to join the &lPRISON &7server!").build(), e -> {
+        contents.set(1, 4, ClickableItem.of(new Item(Material.DIAMOND_PICKAXE).name("&e&lRANKUP").lore("", "&7Clique aqui para entrar no &lRANKUP INDUSTRIAL&7!").build(), e -> {
             val api = BungeeChannelApi.of(Lobby.getInstance());
 
-            player.sendMessage("§cYou're now in queue to join the Prison server!");
-            api.connect(player, "prison");
+            if (Lobby.getPlayerSettings(player.getUniqueId()).alertas()) player.sendMessage("§cVocê está na fila para entrar no servidor.");
+            api.connect(player, "rankup");
 
             INVENTORY.close(player);
         }));

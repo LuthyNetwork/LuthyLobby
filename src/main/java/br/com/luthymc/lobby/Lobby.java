@@ -8,7 +8,7 @@ import br.com.luthymc.lobby.helper.PluginHelper;
 import br.com.luthymc.lobby.listeners.ChatListener;
 import br.com.luthymc.lobby.listeners.PlayerListeners;
 import br.com.luthymc.lobby.listeners.ServerListeners;
-import br.com.luthymc.lobby.npc.list.PrisonNPC;
+import br.com.luthymc.lobby.npc.list.RankupNPC;
 import br.com.luthymc.lobby.utils.settings.Settings;
 import br.com.luthymc.lobby.utils.time.MasterCooldown;
 import com.google.common.collect.Maps;
@@ -68,7 +68,7 @@ public class Lobby extends PluginHelper implements Listener {
 
         loadGSON();
 
-        new PrisonNPC(new Location(Bukkit.getWorlds().get(0), 100, 70, 100, 0, 0)).build(npcLib);
+        new RankupNPC(new Location(Bukkit.getWorlds().get(0), 100, 70, 100, 0, 0)).build(npcLib);
 
         listener(new PlayerListeners(), new ServerListeners(), new ChatListener());
         register(new ClearCommand(), new LockCommand(), new UnlockCommand(), new SettingsCommand());
