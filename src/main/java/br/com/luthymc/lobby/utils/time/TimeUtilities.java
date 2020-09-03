@@ -13,13 +13,11 @@ public class TimeUtilities {
         String part;
 
         if (timeOfDay < 12) {
-            part = "Morning";
-        } else if (timeOfDay < 16) {
-            part = "Afternoon";
-        } else if (timeOfDay < 21) {
-            part = "Evening";
+            part = "um bom dia";
+        }else if (timeOfDay < 21) {
+            part = "uma boa tarde";
         } else {
-            part = "Night";
+            part = "uma boa noite";
         }
 
         return part;
@@ -37,19 +35,19 @@ public class TimeUtilities {
         if (time >= 3600) {
             hours = time / 3600;
             aux -= hours * 3600;
-            sb.append((hours == 1) ? (hours + " hour ")
-                    : (hours + " hours "));
+            sb.append((hours == 1) ? (hours + " hora ")
+                    : (hours + " horas "));
         }
         if (aux >= 60) {
             minutes = aux / 60;
             aux -= minutes * 60;
-            sb.append((minutes == 1) ? (minutes + " minute ")
-                    : (minutes + " minutes "));
+            sb.append((minutes == 1) ? (minutes + " minuto ")
+                    : (minutes + " minutos "));
         }
         if (aux > 0) {
             seconds = aux;
-            sb.append((seconds == 1) ? (seconds + " second")
-                    : (seconds + " seconds"));
+            sb.append((seconds == 1) ? (seconds + " segundo")
+                    : (seconds + " segundos"));
         }
         return sb.substring(0, sb.toString().length());
     }

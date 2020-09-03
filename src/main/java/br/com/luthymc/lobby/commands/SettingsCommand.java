@@ -3,6 +3,7 @@ package br.com.luthymc.lobby.commands;
 import br.com.luthymc.lobby.Lobby;
 import br.com.luthymc.lobby.utils.settings.Settings;
 import com.ianlibanio.voidcommand.VoidCommand;
+import com.ianlibanio.voidcommand.annotation.command.Aliases;
 import com.ianlibanio.voidcommand.annotation.command.Command;
 import com.ianlibanio.voidcommand.annotation.subcommand.SubCommand;
 import com.ianlibanio.voidcommand.context.Context;
@@ -12,13 +13,14 @@ import org.bukkit.entity.Player;
 public class SettingsCommand extends VoidCommand {
 
     @Command(name = "settings", executor = Executor.PLAYER_ONLY)
+    @Aliases({"config", "configuracoes"})
     public void command(Context context) {
-        context.player().sendMessage("§cPlease, use /settings <list> for the list of settings you can change.");
+        context.player().sendMessage("§cPor favor, use /config <list> para uma lista de configurações que você pode alterar.");
     }
 
     @SubCommand(name = "list")
     public void list(Context context) {
-        context.player().sendMessage("§7You can change the following settings: §ealerts §7(§e/settings alerts§7) §7and §echat §7(§e/settings chat§7).");
+        context.player().sendMessage("§7Você pode alterar as seguintes configurações: §ealertas §7(§e/config alertas§7) §7e §echat §7(§e/config chat§7).");
     }
 
     @SubCommand(name = "alerts")
@@ -29,24 +31,30 @@ public class SettingsCommand extends VoidCommand {
         Settings settings = Lobby.getPlayerSettings(player.getUniqueId());
 
         if (args.length < 2) {
-            String actual = settings.alerts() ? "§atrue" :"§cfalse";
+            String actual = settings.alertas() ? "§aativada" : "§cdesativada";
 
-            player.sendMessage("§7Actually your setting '§ealerts§7' is set to '" + actual + "§7'.");
+            player.sendMessage("§7Atualmente a sua configuração '§ealertas§7' está '" + actual + "§7'.");
             return;
         }
 
         boolean activate;
-        try {
-            activate = Boolean.parseBoolean(args[1]);
-        } catch (Exception ex) {
-            player.sendMessage("§cPlease, use /settings alerts true/false.");
-            return;
+
+        switch (args[1]) {
+            case "ativar":
+                activate = true;
+                break;
+            case "desativar":
+                activate = false;
+                break;
+            default:
+                player.sendMessage("§cPor favor, use /config alertas ativar/desativar.");
+                return;
         }
 
-        String change = activate ? "§atrue" :"§cfalse";
-        player.sendMessage("§7Your setting '§ealerts§7' has been set to '" + change + "§7'.");
+        String change = activate ? "§aativada" : "§cdesativada";
+        player.sendMessage("§7A sua configuração '§ealertas§7' agora está '" + change + "§7'.");
 
-        settings.alerts(activate);
+        settings.alertas(activate);
     }
 
     @SubCommand(name = "chat")
@@ -57,22 +65,28 @@ public class SettingsCommand extends VoidCommand {
         Settings settings = Lobby.getPlayerSettings(player.getUniqueId());
 
         if (args.length < 2) {
-            String actual = settings.chat() ? "§atrue" :"§cfalse";
+            String actual = settings.chat() ? "§aativada" : "§cdesativada";
 
-            player.sendMessage("§7Actually your setting '§echat§7' is set to '" + actual + "§7'.");
+            player.sendMessage("§7Atualmente a sua configuração '§echat§7' está '" + actual + "§7'.");
             return;
         }
 
         boolean activate;
-        try {
-            activate = Boolean.parseBoolean(args[1]);
-        } catch (Exception ex) {
-            player.sendMessage("§cPlease, use /settings chat true/false.");
-            return;
+
+        switch (args[1]) {
+            case "ativar":
+                activate = true;
+                break;
+            case "desativar":
+                activate = false;
+                break;
+            default:
+                player.sendMessage("§cPor favor, use /config alertas ativar/desativar.");
+                return;
         }
 
-        String change = activate ? "§atrue" :"§cfalse";
-        player.sendMessage("§7Your setting '§echat§7' has been set to '" + change + "§7'.");
+        String change = activate ? "§aativada" : "§cdesativada";
+        player.sendMessage("§7A sua configuração '§echat§7' agora está '" + change + "§7'.");
 
         settings.chat(activate);
     }

@@ -37,8 +37,8 @@ public class PlayerListeners implements Listener {
         event.setJoinMessage(null);
 
         player.getInventory().clear();
-        player.getInventory().setItem(3, new Item(Material.COMPASS).name("&7Server Compass").lore("", "&7Click here to join a server of our network.").build());
-        player.getInventory().setItem(5, new Item(Material.FIREWORK).name("&7Kangaroo").lore("", "&7Have fun while waiting for join the server.").build());
+        player.getInventory().setItem(3, new Item(Material.COMPASS).name("&7Servidores").lore("", "&7Clique aqui para entrar em um servidor de nossa network.").build());
+        player.getInventory().setItem(5, new Item(Material.FIREWORK).name("&7Kangaroo").lore("", "&7Tenha diversão enquanto espera para entrar no servidor.").build());
     }
 
     @EventHandler
@@ -75,7 +75,7 @@ public class PlayerListeners implements Listener {
             return;
         val meta = stack.getItemMeta();
 
-        if (stack.getType() == Material.COMPASS && meta.getDisplayName().equals("§7Server Compass")) {
+        if (stack.getType() == Material.COMPASS && meta.getDisplayName().equals("§7Servidores")) {
             event.setCancelled(true);
             CompassMenu.INVENTORY.open(player);
         }
@@ -99,8 +99,8 @@ public class PlayerListeners implements Listener {
                 }
                 cooldown.add(player.getUniqueId().toString(), "kangaroo", 6, TimeUnit.SECONDS);
             } else {
-                if (Lobby.getPlayerSettings(player.getUniqueId()).alerts()) {
-                    player.sendMessage("§cYou must wait " + cooldown.timeLeft(player.getUniqueId().toString(), "kangaroo") + " or hit the ground before using the kangaroo again.");
+                if (Lobby.getPlayerSettings(player.getUniqueId()).alertas()) {
+                    player.sendMessage("§cVocê deve esperar " + cooldown.timeLeft(player.getUniqueId().toString(), "kangaroo") + " ou atingir o chão antes de usar o Kangaroo novamente.");
                 }
             }
         }

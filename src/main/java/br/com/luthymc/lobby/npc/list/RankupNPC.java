@@ -10,9 +10,9 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class PrisonNPC extends LobbyNPC {
+public class RankupNPC extends LobbyNPC {
 
-    public PrisonNPC(Location location) {
+    public RankupNPC(Location location) {
         super(Lobby.getInstance(),
                 location,
                 new ItemStack(Material.DIAMOND_PICKAXE),
@@ -26,9 +26,9 @@ public class PrisonNPC extends LobbyNPC {
             val player = event.getWhoClicked();
             val api = BungeeChannelApi.of(Lobby.getInstance());
 
-            if (Lobby.getPlayerSettings(player.getUniqueId()).alertas()) player.sendMessage("§cVocê entrou na queue para ");
+            if (Lobby.getPlayerSettings(player.getUniqueId()).alertas()) player.sendMessage("§cVocê está na fila para entrar no servidor.");
 
-            api.connect(player, "prison");
+            api.connect(player, "rankup");
         }
     }
 

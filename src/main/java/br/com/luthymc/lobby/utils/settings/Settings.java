@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @Data
 public class Settings {
 
-    public boolean alerts, chat;
+    public boolean alertas, chat;
 
     public static Settings defaultSettings() {
         return new Settings(true, true);
