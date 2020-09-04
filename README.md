@@ -12,6 +12,12 @@ Ian Libânio - Discord: Null#1001
 
 [https://github.com/LuthyNetwork/LuthyLobby](https://github.com/ianlibanio/)
 
+### Docs
+
+Yan Spatt - Discord: Yan Spatt#0001
+
+[https://github.com/LuthyNetwork/LuthyCore](https://github.com/Yspatt/)
+
 ## Contributing
 
  1. Fork it <https://github.com/LuthyNetwork/LuthyLobby/fork>
