@@ -1,11 +1,11 @@
-package com.luthynetwork.lobby.listeners;
+package com.luthynetwork.lobby.listeners.world;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
-public class ServerListeners implements Listener {
+public class WorldListeners implements Listener {
 
     @EventHandler
     public void onWeatherChange(WeatherChangeEvent event) {

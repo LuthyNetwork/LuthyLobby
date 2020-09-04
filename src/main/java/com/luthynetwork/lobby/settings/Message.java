@@ -1,4 +1,4 @@
-package br.com.luthymc.lobby.settings;
+package com.luthynetwork.lobby.settings;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

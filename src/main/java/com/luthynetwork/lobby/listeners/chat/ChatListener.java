@@ -1,31 +1,55 @@
-package com.luthynetwork.lobby.listeners;
+package com.luthynetwork.lobby.listeners.chat;
 
+import com.google.common.collect.Lists;
 import com.luthynetwork.lobby.Lobby;
 import com.luthynetwork.lobby.settings.Message;
+import com.luthynetwork.login.LuthyLogin;
+import lombok.Getter;
 import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+
+import java.util.List;
 
 public class ChatListener implements Listener {
 
-    private static boolean activated = true;
+    List<String> loginCommands = Lists.newArrayList( "/register", "/registrar", "/login", "/logar");
 
-    public static boolean isActivated() {
-        return activated;
-    }
+    @Getter private static boolean activated = true;
 
     public static void lock(boolean lock) {
         activated = !lock;
     }
 
     @EventHandler
+    public void onCommand(PlayerCommandPreprocessEvent event) {
+        val player = event.getPlayer();
+        val loginService = LuthyLogin.getService();
+
+        if (loginCommands.stream().filter(x -> event.getMessage().startsWith(x)).findFirst().orElse(null) == null) {
+            if (!loginService.isLogged(player.getUniqueId())) {
+                event.setCancelled(true);
+
+                Message.withPrefix(player, "Você deve se autenticar antes de usar comandos.");
+            }
+        }
+    }
+
+    @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
+        val player = event.getPlayer();
+        val loginService = LuthyLogin.getService();
+
         event.setCancelled(true);
 
-        val player = event.getPlayer();
+        if (!loginService.isLogged(player.getUniqueId())) {
+            Message.withPrefix(player, "Você deve se autenticar antes de digitar no chat.");
+            return;
+        }
 
         if (!Lobby.getPlayerSettings(player.getUniqueId()).chat()) {
             Message.withPrefix(player, "§cVocê não pode enviar mensagens enquanto o seu chat está desativado.");

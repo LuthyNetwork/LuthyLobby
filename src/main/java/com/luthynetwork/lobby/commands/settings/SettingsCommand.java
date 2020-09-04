@@ -1,4 +1,4 @@
-package com.luthynetwork.lobby.commands;
+package com.luthynetwork.lobby.commands.settings;
 
 import com.luthynetwork.core.commands.VoidCommand;
 import com.luthynetwork.core.commands.annotation.command.Aliases;

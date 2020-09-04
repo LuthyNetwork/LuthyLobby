@@ -1,9 +1,9 @@
 package com.luthynetwork.lobby.inventory;
 
+import com.luthynetwork.core.LuthyCore;
 import com.luthynetwork.lobby.Lobby;
 import com.luthynetwork.lobby.settings.Message;
 import com.luthynetwork.core.libs.item.Item;
-import com.luthynetwork.core.libs.proxy.BungeeChannelApi;
 import fr.minuskube.inv.ClickableItem;
 import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
@@ -26,7 +26,7 @@ public class CompassMenu implements InventoryProvider {
     @Override
     public void init(Player player, InventoryContents contents) {
         contents.set(1, 4, ClickableItem.of(new Item(Material.IRON_PICKAXE).name("&a&lRANKUP").lore("", "&7Clique aqui para entrar no &lRANKUP INDUSTRIAL&7!").build(), e -> {
-            val api = BungeeChannelApi.of(Lobby.instance());
+            val api = LuthyCore.getApi().getBungeeChannelApi();
 
             if (Lobby.getPlayerSettings(player.getUniqueId()).alertas()) Message.withPrefix(player, "§cVocê está na fila para entrar no servidor.");
             api.connect(player, "rankup");

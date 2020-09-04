@@ -1,4 +1,4 @@
-package br.com.luthymc.lobby.settings;
+package com.luthynetwork.lobby.settings;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

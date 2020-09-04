@@ -1,5 +1,7 @@
-package com.luthynetwork.lobby.npc.base;
+package com.luthynetwork.lobby.npc;
 
+import com.luthynetwork.lobby.Lobby;
+import com.luthynetwork.login.events.PlayerLoginEvent;
 import lombok.Getter;
 import net.jitse.npclib.NPCLib;
 import net.jitse.npclib.api.NPC;
@@ -11,11 +13,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Getter
 public abstract class LobbyNPC implements Listener {
@@ -37,10 +40,6 @@ public abstract class LobbyNPC implements Listener {
     }
 
     public void build(NPCLib lib) {
-        for (int i = 0; i < text.length; i++) {
-            text[i] = ChatColor.translateAlternateColorCodes('&', text[i]);
-        }
-
         MineSkinFetcher.fetchSkinFromIdAsync(skinId, skin -> {
             npc = lib.createNPC(Arrays.asList(text));
             npc.setLocation(location);
@@ -50,6 +49,13 @@ public abstract class LobbyNPC implements Listener {
         });
 
         Bukkit.getPluginManager().registerEvents(this, plugin);
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (Bukkit.getOnlinePlayers().size() != 0) npc.setText(update(npc));
+            }
+        }.runTaskTimer(Lobby.instance(), 20L * 5, 20L * 5);
     }
 
     @EventHandler
@@ -60,10 +66,11 @@ public abstract class LobbyNPC implements Listener {
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
+    public void onLogin(PlayerLoginEvent event) {
         npc.show(event.getPlayer());
     }
 
     public abstract void interact(NPCInteractEvent event);
+    public abstract List<String> update(NPC npc);
 
 }

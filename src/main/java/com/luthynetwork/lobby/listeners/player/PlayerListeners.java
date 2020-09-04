@@ -1,4 +1,4 @@
-package com.luthynetwork.lobby.listeners;
+package com.luthynetwork.lobby.listeners.player;
 
 import com.luthynetwork.lobby.Lobby;
 import com.luthynetwork.lobby.inventory.CompassMenu;
@@ -6,11 +6,14 @@ import com.luthynetwork.lobby.inventory.ProfileMenu;
 import com.luthynetwork.lobby.settings.Settings;
 import com.luthynetwork.core.libs.item.HeadBuilder;
 import com.luthynetwork.core.libs.item.Item;
+import com.luthynetwork.login.events.PlayerLoginEvent;
 import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -21,8 +24,15 @@ import org.bukkit.inventory.ItemStack;
 
 public class PlayerListeners implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+
+        player.teleport(Lobby.spawnLocation());
+    }
+
+    @EventHandler
+    public void onLogin(PlayerLoginEvent event) {
         val player = event.getPlayer();
         val uuid = player.getUniqueId();
 
@@ -30,11 +40,7 @@ public class PlayerListeners implements Listener {
         player.setMaxHealth(2.0D);
         player.setHealth(2.0D);
 
-        Settings settings = Lobby.getPlayerSettings(uuid);
-
-        if (settings == null) Lobby.defaultSettings(uuid);
-
-        event.setJoinMessage(null);
+        if (Lobby.getPlayerSettings(uuid) == null) Lobby.defaultSettings(uuid);
 
         player.getInventory().clear();
 

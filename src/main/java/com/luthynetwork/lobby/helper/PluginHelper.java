@@ -1,4 +1,4 @@
-package br.com.luthymc.lobby.helper;
+package com.luthynetwork.lobby.helper;
 
 import com.luthynetwork.core.commands.VoidCommand;
 import com.luthynetwork.core.commands.registration.VoidRegister;

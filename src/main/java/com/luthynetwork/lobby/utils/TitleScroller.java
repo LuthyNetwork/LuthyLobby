@@ -1,4 +1,4 @@
-package com.luthynetwork.lobby.utils.scoreboard;
+package com.luthynetwork.lobby.utils;
 
 public class TitleScroller {
 

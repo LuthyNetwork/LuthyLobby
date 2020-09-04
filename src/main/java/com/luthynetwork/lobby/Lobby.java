@@ -1,14 +1,19 @@
-package br.com.luthymc.lobby;
+package com.luthynetwork.lobby;
 
-import br.com.luthymc.lobby.commands.*;
-import br.com.luthymc.lobby.helper.PluginHelper;
-import br.com.luthymc.lobby.listeners.ChatListener;
-import br.com.luthymc.lobby.listeners.PlayerListeners;
-import br.com.luthymc.lobby.listeners.ServerListeners;
-import br.com.luthymc.lobby.npc.list.RankupNPC;
-import br.com.luthymc.lobby.scoreboard.LobbyScoreboard;
-import br.com.luthymc.lobby.settings.Settings;
-import br.com.luthymc.lobby.utils.LocationSerializer;
+import com.luthynetwork.core.libs.location.LocationSerializer;
+import com.luthynetwork.core.libs.scoreboard.ScoreboardManager;
+import com.luthynetwork.lobby.commands.chat.ClearCommand;
+import com.luthynetwork.lobby.commands.chat.LockCommand;
+import com.luthynetwork.lobby.commands.chat.UnlockCommand;
+import com.luthynetwork.lobby.commands.location.CoordsCommand;
+import com.luthynetwork.lobby.commands.settings.SettingsCommand;
+import com.luthynetwork.lobby.helper.PluginHelper;
+import com.luthynetwork.lobby.listeners.chat.ChatListener;
+import com.luthynetwork.lobby.listeners.player.PlayerListeners;
+import com.luthynetwork.lobby.listeners.world.WorldListeners;
+import com.luthynetwork.lobby.npc.list.RankupNPC;
+import com.luthynetwork.lobby.scoreboard.LobbyScoreboard;
+import com.luthynetwork.lobby.settings.Settings;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,7 +29,6 @@ import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.scoreboard.ScoreboardManager;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -65,7 +69,7 @@ public class Lobby extends PluginHelper {
             luckPerms = provider.getProvider();
         }
 
-        spawnLocation = LocationSerializer.deserialize(Lobby.instance().getConfig().getString("void.teleport"));
+        spawnLocation = LocationSerializer.deserialize(Lobby.instance().getConfig().getString("spawn.location"));
         npcLib = new NPCLib(this);
         gson = new GsonBuilder().setPrettyPrinting().enableComplexMapKeySerialization().create();
         scoreboardManager = new ScoreboardManager(this, BoardSettings.builder().boardProvider(new LobbyScoreboard()).scoreDirection(ScoreDirection.UP).build());
@@ -83,7 +87,7 @@ public class Lobby extends PluginHelper {
 
         new RankupNPC(new Location(Bukkit.getWorlds().get(0), 100, 70, 100, 0, 0)).build(npcLib);
 
-        listener(new PlayerListeners(), new ServerListeners(), new ChatListener());
+        listener(new PlayerListeners(), new WorldListeners(), new ChatListener());
         register(new ClearCommand(), new LockCommand(), new UnlockCommand(), new SettingsCommand(), new CoordsCommand());
     }
 
@@ -123,7 +127,10 @@ public class Lobby extends PluginHelper {
             return false;
         }
 
-        return file.delete() && file.createNewFile();
+        boolean delete = file.delete();
+        boolean create = file.createNewFile();
+
+        return delete && create;
     }
 
     public static Settings getPlayerSettings(UUID uuid) {

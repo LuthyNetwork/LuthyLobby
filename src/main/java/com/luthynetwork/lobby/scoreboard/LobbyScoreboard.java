@@ -1,8 +1,9 @@
-package br.com.luthymc.lobby.scoreboard;
+package com.luthynetwork.lobby.scoreboard;
 
-import br.com.luthymc.lobby.Lobby;
+import com.luthynetwork.lobby.Lobby;
 import com.google.common.collect.Lists;
 import com.luthynetwork.core.libs.scoreboard.provider.CommonScoreboard;
+import com.luthynetwork.lobby.utils.TitleScroller;
 import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,7 +30,7 @@ public class LobbyScoreboard implements CommonScoreboard {
             lines.add(" §7Olá " + player.getName() + ", seu status");
             lines.add(" §b");
             lines.add(" §7Grupo: " + "§7§lMEMBRO");
-            lines.add(" §7Coins: §e§lSOON");
+            lines.add(" §7Coins: §e§lEM BREVE");
             lines.add(" §c");
             lines.add(" §7Lobby: §a#1");
             lines.add(" §6Online: §f" + Bukkit.getOnlinePlayers().size());
@@ -46,7 +47,7 @@ public class LobbyScoreboard implements CommonScoreboard {
         lines.add(" §7Olá " + color + player.getName() + "§7, seu status");
         lines.add(" §b");
         lines.add(" §7Grupo: " + color + ChatColor.BOLD + prefix.substring(2).toUpperCase());
-        lines.add(" §7Coins: §e§lSOON");
+        lines.add(" §7Coins: §e§lEM BREVE");
         lines.add(" §c");
         lines.add(" §7Lobby: §a#1");
         lines.add(" §7Online: §f" + Bukkit.getOnlinePlayers().size());

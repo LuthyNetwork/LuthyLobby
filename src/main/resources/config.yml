@@ -1,0 +1,4 @@
+spawn:
+  # World:X:Y:Z:YAW:PITCH
+  # Você pode usar /coords para definir isso
+  location: 'world:0:100:0:0:0'

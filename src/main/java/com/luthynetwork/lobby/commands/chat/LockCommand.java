@@ -1,6 +1,6 @@
-package com.luthynetwork.lobby.commands;
+package com.luthynetwork.lobby.commands.chat;
 
-import com.luthynetwork.lobby.listeners.ChatListener;
+import com.luthynetwork.lobby.listeners.chat.ChatListener;
 import com.luthynetwork.lobby.settings.Message;
 import com.luthynetwork.core.commands.VoidCommand;
 import com.luthynetwork.core.commands.annotation.command.Aliases;
